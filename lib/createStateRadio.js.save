@@ -1,3 +1,7 @@
+//for debug purpose only
+const util = require('util');
+//sails logs are also commented for debug
+
 
 module.exports = function(data){
 	
@@ -25,18 +29,13 @@ console.log('Received data from Arduino ' + data);
 		param.device.identifier = res2[1];
 		var tmptype;
 		var nbtype = 0;
-		var maxlength = res.length;
-		res.splice(maxlength-1,1);
-		maxlength = res.length;
-		for (var i = 4, len = maxlength; i < len; i++) {
+console.log(res.length);
+		for (var i = 4, len = res.length; i < len-1; i++) {
 			var item = res[i].split("=");
 			var type = item[0];
 			var val;
 			var tmpval;
 			var update = true;
-			var unit = '';
-			var sensor = 1;
-			txtval = item[1];
 			tmpval = parseInt(item[1],10);
 			hexval = parseInt(item[1],16);
 			switch(item[0]){
@@ -51,62 +50,29 @@ console.log('Received data from Arduino ' + data);
 					if(hexval>32768){
 						hexval=-(hexval-32768);
 					}
-					unit='°C';
-					tmpval=hexval/10;
-				break;
 				case `RAIN`:
 				case `RAINRATE`:
 				case `RAINTOT`:
-					unit='mm';
-					tmpval=hexval/10;
-				break;
 				case `WINSP`:
 				case `AWINSP`:
-					unit='km/h';
 					tmpval=hexval/10;
 				break;
 				case `WINDIR`:
 					tmpval=tmpval*22.5;
-					unit='°';
-					break;
+				break;
 				case `BARO`:
-					unit='hPa';
-					tmpval=hexval;
-				break;
-				case 'WINGS':
-					unit='km/h';
-					tmpval=hexval;
-				break;
 				case `UV`:
 				case `LUX`:
-					tmpval=hexval;
-				break;
+				case `WINGS`:
 				case `KWATT`:
-					hexval=hexval*1000;
 				case `WATT`:
-					unit='W';
-					tmpval=hexval;
-				break;
-				case 'RGB':
-					sensor=0;
 					tmpval=hexval;
 				break;
 				case `RGBW`:
 				case `RGBWW`:
-					sensor=0;
-					type = 'COLOR';
-					tmpval=parseInt(txtval.substring(0,2),16);
-					res.push('BRIGHTNESS='+txtval.substring(2,4));					
-					len++;
-				break;
-				case 'BRIGHTNESS':
-					sensor=0;
-					type = 'BRIGHTNESS';
-					tmpval=hexval;
+					tmpval=item[1];
 				break;
 				case `CMD`:
-					update=true;
-					sensor=0;
 					if(item[1]==='SET_LEVEL'){
 						type = `dimmer`;
 						tmpval = parseInt(item[2]);
@@ -119,7 +85,8 @@ console.log('Received data from Arduino ' + data);
 					type = item[0];
 					break;
 			}
-			switch(txtval){
+		
+	switch(tmpval){
 				case `OFF`:
 				case `LOW`:
 					val = 0;
@@ -146,13 +113,21 @@ console.log('Received data from Arduino ' + data);
 				break;
 			}
 			if(update){
-				param.types.push({type: 'binary',identifier: '',sensor: true,unit:'',min: -99,max: 99});
-				param.types[nbtype].type = type;
-				param.types[nbtype].unit = unit;
-				param.types[nbtype].sensor = sensor;
-				statelist.states.push({value:''});
-				statelist.states[nbtype].value=val;
+var types = {
+	type:'',
+	identifier: '',
+	sensor: true,
+	min: -99,
+	max: 99
+};
+param.types.push({type: 'binary',identifier: '',sensor: true,min: -99,max: 99});
 
+				param.types[nbtype].type = type;
+statelist.states.push({value:''});
+statelist.states[nbtype].value=val;
+
+console.log(util.inspect(param, false, null));
+//console.log(nbtype+'::datas:'+param.device.identifier+':'+param.device.service+':'+type+'=='+state.value);
 				// try to create the state
 				gladys.deviceState.createByIdentifier(param.device.identifier, param.device.service, param.types[nbtype].type, statelist.states[nbtype])
 					.catch(() => {
@@ -168,6 +143,6 @@ console.log('Received data from Arduino ' + data);
 				nbtype++;
 			}
 			
-       	}
+        }
 	}
 };

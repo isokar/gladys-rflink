@@ -5,7 +5,8 @@ module.exports = function(sails) {
     var setup = require('./lib/setup.js');
     var connect = require('./lib/connect.js');
     var sendCode = require('./lib/sendCode.js');
-	var exec = require('./lib/exec.js');
+    var exec = require('./lib/exec.js');
+    var create = require('./lib/createStateRadio.js');
 
     gladys.on('ready', function(){
         connect();
@@ -15,6 +16,7 @@ module.exports = function(sails) {
         connect: connect,
         setup: setup,
         sendCode: sendCode,
-		exec: exec
+	exec: exec,
+	create: create
     };
 };
