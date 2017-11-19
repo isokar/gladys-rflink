@@ -13,7 +13,8 @@ Need Gladys version >= 3.0.0.
 - Click on the "config" button of the "RFLink" module in the "Modules" view. 
 - Create a device in Gladys in the Device view with the following info => 
 - Simply receive datas from your device to create the appropriate device and deviceType.
-- To create your device manually, you can copy/paste and adapt the following script.
+- To create your device manually, you can copy/paste and adapt the following script:
+"gladys.modules.rflink.create('20;01;MiLightv1;ID=F746;SWITCH=00;RGBW=3c1d;CMD=ON;');"
 
 ## Infos
 
