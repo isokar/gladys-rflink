@@ -8,7 +8,6 @@ Need Gladys version >= 3.0.0.
 
 From your Gladys interface, go to the « Modules » view, then clic on the « Advanced » tab.
 
-[cols=5*,options=header]
 |===
 | Name | Version | Depot | Slug | |
 RFLink | 0.0.2 | https://github.com/isokar/gladys-rflink | rflink | Install
