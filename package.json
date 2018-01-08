@@ -1,6 +1,6 @@
 {
   "name": "gladys-RFLink",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Gladys hooks to send and receive RFLink formated data thru serial port.",
   "main": "index.js",
   "scripts": {
