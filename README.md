@@ -16,7 +16,7 @@ From your Gladys interface, go to the « Modules » view, then clic on the «�
 
 **Click on install**
 
-- Flash your Arduino with RFLink [firmware](http://www.rflink.nl/blog2/download).
+- Flash your Arduino with RFLink [firmware](http://www.rflink.nl/blog2/download)(Tested with R48).
 - Connect your arduino in USB to your Raspberry Pi
 - Reboot Gladys
 - Click on the "config" button of the "RFLink" module in the "Modules" view. 
