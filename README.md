@@ -11,7 +11,7 @@ From your Gladys interface, go to the « Modules » view, then clic on the «�
 
 | Name | Version | Depot | Slug |
 
-|RFLink | 0.1.0 | https://github.com/isokar/gladys-rflink | rflink | Install
+|RFLink | 0.1.0 | https://github.com/isokar/gladys-rflink/tree/isokar-patch-1 | rflink | Install
 
 
 **Click on install**
