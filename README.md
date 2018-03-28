@@ -1,6 +1,6 @@
 # Gladys RFLink
 
-Gladys hooks which connect to your RFLink thru a USB serial port in order to control and receive datas from radio devices.
+Gladys hooks which connect to your RFLink thru an Arduino connected to USB serial in order to control and receive datas from radio devices.
 
 Need Gladys version >= 3.0.0.
 
@@ -19,11 +19,13 @@ From your Gladys interface, go to the « Modules » view, then clic on the «�
 - Flash your Arduino with RFLink [firmware](http://www.rflink.nl/blog2/download)(Tested with R48).
 - Connect your arduino in USB to your Raspberry Pi
 - Reboot Gladys
-- Click on the "config" button of the "RFLink" module in the "Modules" view. 
-- Simply receive datas from your device(or it's remote) to create the appropriate device and deviceType(s).
 - To create your device manually, you can copy/paste and adapt the following script:
 "gladys.modules.rflink.create('20;01;MiLightv1;ID=F746;SWITCH=00;RGBW=3c1d;CMD=ON;');"
 - Just change The protocol, the ID, SWITCH N° and CMD.
+
+You might need to change the serial port used(for exemple if you have multiple arduinos connected). Just click on "SETUP". the list of connected arduinos will show on console. Just copy/paste the right one to "RFLink_tty" parameters.
+
+To import device you can do it manually or with auto-detect function. Just click on "SETUP". RFLink will be on auto-detect for 5 minutes. during this time, all detected devices will be added to your devices.
 
 ## Infos
 
